@@ -287,9 +287,3 @@ ALTER TABLE user ADD FOREIGN KEY (`delivery_address_id`) REFERENCES `address`(`i
 ALTER TABLE user ADD billing_address_id int;
 ALTER TABLE user ADD FOREIGN KEY (`billing_address_id`) REFERENCES `address`(`id`) ;
 
-
-
-
-
-
-ALTER TABLE user ADD facturation_address_id int;
