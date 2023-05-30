@@ -57,8 +57,8 @@ INNER JOIN tag
 ON product_tag.tag_id = tag.id
 INNER JOIN promotion AS pm 
 WHERE 
-((pd.title REGEXP '.*Apple') OR
-(pd.description REGEXP '.*Apple') OR
+((pd.title REGEXP 'Apple') OR
+(pd.description REGEXP 'Apple') OR
 (tag.name = 'Siri'))
 AND (pm.id IN (12, 13, 14));
 
