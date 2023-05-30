@@ -70,10 +70,13 @@ localisation(ville)
 
 /* Créer une nouvelle table pour les marques */
 
+/* À cause du risque de villes homonymes, on rajoute un city_id */
+
 CREATE TABLE `brand` (
   `id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(60) NOT NULL,
   `city` varchar(100) NOT NULL,
+  `city_id` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -83,11 +86,23 @@ ALTER TABLE product ADD `brand_id` int ;
 ALTER TABLE product ADD FOREIGN KEY (`brand_id`) REFERENCES `brand`(`id`) ;
 
 
-INSERT INTO `brand` (`id`, `title`, `city`) VALUES
-(1, 'Voisin', 'Lyon'),
-(2, 'L\'Oréal', 'Clichy'),
-(3, 'YSL', 'Paris'),
-(4, 'Alory', 'Lyon');
+INSERT INTO `brand` (`id`, `title`, `city`,`city_id`) VALUES
+(1, 'Voisin', 'Lyon', 
+    (SELECT `ville_id` 
+       FROM villes_france_free 
+       WHERE `ville_slug`='LYON' AND `ville_departement`='69')),
+(2, 'L\'Oréal', 'Clichy', 
+    (SELECT `ville_id` 
+       FROM villes_france_free 
+       WHERE `ville_slug`='CLICHY' AND `ville_departement`='92')),
+(3, 'YSL', 'Paris', 
+    (SELECT `ville_id` 
+       FROM villes_france_free 
+       WHERE `ville_slug`='PARIS' AND `ville_departement`='75')),
+(4, 'Alory', 'Lyon', 
+    (SELECT `ville_id` 
+       FROM villes_france_free 
+       WHERE `ville_slug`='LYON' AND `ville_departement`='69'));
 
 /* Mettre les marques sur quelques produits */
 
